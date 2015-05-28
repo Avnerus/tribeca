@@ -1,2 +1,2 @@
 # tribeca
-Tribeca festival - Team 1!
+Tribeca Hacathon for Print Screen - Team 1!
