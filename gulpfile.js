@@ -42,7 +42,7 @@ gulp.task('css', function() {
 });
 
 
-gulp.task('public',['public-css','public-lib','browserify'], function() {
+gulp.task('public',['public-css','public-lib','public-assets','browserify'], function() {
     return gulp.src('build/client/bundle.js')
     .pipe(gulp.dest('public/build/client'));
 });
@@ -55,6 +55,10 @@ gulp.task('public-css', ['css'], function() {
 gulp.task('public-lib', function() {
     return gulp.src('lib/**/*.js')
     .pipe(gulp.dest('public/lib'));
+});
+gulp.task('public-assets', function() {
+    return gulp.src('assets/**/*.*')
+    .pipe(gulp.dest('public/assets'));
 });
 
 // JS
