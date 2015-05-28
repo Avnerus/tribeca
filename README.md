@@ -1,2 +1,2 @@
 # tribeca
-Tribeca Hacathon for Print Screen - Team 1!
+Tribeca Hackathon for Print Screen - Team 1!
