@@ -38,8 +38,14 @@ componentFactory.createComponent('face', `
              this.stage = new PIXI.Container();
              console.log("Stage: ", this.stage);
              this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
+             let loader = PIXI.loader;
+             loader.add('eye', "assets/eye.png");
 
-             this.draw();
+             loader.once('complete', () => {
+                console.log("Assets loaded!");
+                this.draw();
+             });
+             loader.load();
          }
      });
 });

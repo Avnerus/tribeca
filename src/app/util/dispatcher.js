@@ -1,4 +1,5 @@
 import Stores from '../stores'
+import UIControl from './ui-control'
 
 export default class Dispatcher {
     constructor() {
@@ -7,7 +8,8 @@ export default class Dispatcher {
         Object.keys(this.stores).forEach((key) => {
             this._stores.push(this.stores[key]);
         });
-        console.log("Dispatcher initialized. ", this._stores.length, " stores");
+        // Init also the UI Control
+        this.uiControl = new UIControl();
     }
 
     on() {

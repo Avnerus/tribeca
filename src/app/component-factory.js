@@ -17,6 +17,8 @@ class ComponentFactory {
                 this.dispatcher = opts.dispatcher;
             }
             this.stores = this.dispatcher.stores;
+            this.uiControl = this.dispatcher.uiControl;
+
             logic.apply(this,[opts]);
         });
     }
