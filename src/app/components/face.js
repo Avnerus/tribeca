@@ -19,19 +19,22 @@ componentFactory.createComponent('face', `
  </style>
  `,
  function(opts) {
+    var self = this; 
+
+    function draw() {
+        if (!self || !self.renderer) {
+            return;
+        }
+       self.renderer.render(self.stage);
+       requestAnimationFrame(draw);
+    }
 
     this.WIDTH = 1920;
     this.HEIGHT = 1080;
 
      if (miscUtil.isBrowser()) {
          window.PIXI = require('pixi.js');
-     }
-     this.draw = function() {
-         if (!this || !this.renderer) {
-             return;
-         }
-        this.renderer.render(this.stage);
-        requestAnimationFrame(this.draw);
+         window.GSAP = require('gsap');
      }
 
 
@@ -41,6 +44,11 @@ componentFactory.createComponent('face', `
         this.eyes.sprite.position.x = this.WIDTH / 2;
         this.eyes.sprite.position.y = 100;
         this.stage.addChild(this.eyes.sprite);
+
+        // Blink every 3 seconds
+        setInterval(() => {
+            this.eyes.blink();
+        },3000);
      }
 
      this.on('mount', () => {
@@ -60,6 +68,7 @@ componentFactory.createComponent('face', `
              loader.add('eye', "assets/eye.png");
              loader.add('eyes', "assets/eyes.png");
              loader.add('blink', "assets/blink.png");
+             loader.add('bg', "assets/bg.jpg");
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
@@ -73,7 +82,7 @@ componentFactory.createComponent('face', `
                 this.logic.initWithIO(this.tags['text']);
                 this.logic.run();
 
-                this.draw();
+                draw();
              });
              loader.load();
          }

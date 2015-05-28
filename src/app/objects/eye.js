@@ -18,7 +18,10 @@ export default class Eye extends GameObject {
 
     blink()
     {
-         this.sprite.texture = this.texBlink;
+        this.sprite.texture = this.texBlink;
+        TweenMax.delayedCall(0.5, () => {
+            this.sprite.texture = this.texEyes;
+        });
     }
 
 };
