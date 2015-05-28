@@ -27,6 +27,7 @@
     "feathers-hooks": "^0.5.0",
     "feathers-memory": "^0.3.4",
     "feathers-passport": "git+https://github.com/ListnPlay/feathers-passport.git",
+    "gsap": "^1.17.0",
     "isomorphic-fetch": "^2.0.1",
     "json": "^9.0.3",
     "page": "^1.6.2",

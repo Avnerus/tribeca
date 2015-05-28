@@ -1,12 +1,14 @@
 import riot from 'riot';
 import componentFactory from '../component-factory';
 
+
 import miscUtil from '../util/misc';
 import gfxUtil from '../util/gfx';
 
 
 import Eye from '../objects/eye';
 import text from './text';
+import Logic from '../model/logic'
 
 componentFactory.createComponent('face', `
 
@@ -19,8 +21,8 @@ componentFactory.createComponent('face', `
  `,
  function(opts) {
 
-    this.WIDTH = 1280;
-    this.HEIGHT = 720;
+    this.WIDTH = 1920;
+    this.HEIGHT = 1080;
 
      if (miscUtil.isBrowser()) {
          window.PIXI = require('pixi.js');
@@ -37,11 +39,11 @@ componentFactory.createComponent('face', `
      this.addEyes = function() {
         console.log("Adding eyes");
         this.eye1 = new Eye();
-        this.eye1.sprite.position.x = 400;
+        this.eye1.sprite.position.x = 800;
         this.eye1.sprite.position.y = 100;
         this.stage.addChild(this.eye1.sprite);
         this.eye2 = new Eye();
-        this.eye2.sprite.position.x = this.WIDTH - 400;
+        this.eye2.sprite.position.x = this.WIDTH - 800;
         this.eye2.sprite.position.y = 100;
         this.stage.addChild(this.eye2.sprite);
      }
@@ -57,13 +59,24 @@ componentFactory.createComponent('face', `
              this.root.appendChild(this.renderer.view);
              this.stage = new PIXI.Container();
              console.log("Stage: ", this.stage);
-             this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
+             // Color BG
+             // this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
              loader.add('eye', "assets/eye.png");
+             loader.add('bg', "assets/bg.jpg");
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
+                // Picture BG
+                let bg = PIXI.Sprite.fromFrame("assets/bg.jpg");
+                this.stage.addChild(bg);
                 this.addEyes();
+
+                // Init logic
+                this.logic = new Logic();
+                this.logic.initWithIO(this.tags['text']);
+                this.logic.run();
+
                 this.draw();
              });
              loader.load();
