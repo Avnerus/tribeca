@@ -36,14 +36,10 @@ componentFactory.createComponent('face', `
 
      this.addEyes = function() {
         console.log("Adding eyes");
-        this.eye1 = new Eye();
-        this.eye1.sprite.position.x = 400;
-        this.eye1.sprite.position.y = 100;
-        this.stage.addChild(this.eye1.sprite);
-        this.eye2 = new Eye();
-        this.eye2.sprite.position.x = this.WIDTH - 400;
-        this.eye2.sprite.position.y = 100;
-        this.stage.addChild(this.eye2.sprite);
+        this.eyes = new Eye();
+        this.eyes.sprite.position.x = this.WIDTH / 2;
+        this.eyes.sprite.position.y = 100;
+        this.stage.addChild(this.eyes.sprite);
      }
 
      this.on('mount', () => {
@@ -59,7 +55,11 @@ componentFactory.createComponent('face', `
              console.log("Stage: ", this.stage);
              this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
+
+
              loader.add('eye', "assets/eye.png");
+             loader.add('eyes', "assets/eyes.png");
+             loader.add('blink', "assets/blink.png");
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
