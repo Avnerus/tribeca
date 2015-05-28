@@ -33,6 +33,7 @@
     "page.js-express-mapper.js": "^1.0.5",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
+    "pixi.js": "git+https://github.com/GoodBoyDigital/pixi.js.git",
     "primus": "^3.0.2",
     "primus-emitter": "^3.1.0",
     "q": "^1.2.0",

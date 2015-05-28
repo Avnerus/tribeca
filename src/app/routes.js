@@ -52,7 +52,6 @@ class Routes {
         app.route('/').get((req, res, next) => {
             console.log("Default route!")
             let dispatcher = this.getDispatcher(req);
-            dispatcher.trigger("fruit_swap", null);
 
             this.go(next, req);
         });
