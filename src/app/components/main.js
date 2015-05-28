@@ -9,7 +9,6 @@ componentFactory.createComponent('main', `
 <style>
     main {
         display: block;
-        background-color: pink;
     }
     body {
         margin: 0;

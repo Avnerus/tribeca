@@ -6,8 +6,11 @@ import gfxUtil from '../util/gfx';
 
 
 import Eye from '../objects/eye';
+import text from './text';
 
 componentFactory.createComponent('face', `
+
+ <text></text>
 
  <style>
      face {
@@ -34,11 +37,11 @@ componentFactory.createComponent('face', `
      this.addEyes = function() {
         console.log("Adding eyes");
         this.eye1 = new Eye();
-        this.eye1.sprite.position.x = 100;
+        this.eye1.sprite.position.x = 400;
         this.eye1.sprite.position.y = 100;
         this.stage.addChild(this.eye1.sprite);
         this.eye2 = new Eye();
-        this.eye2.sprite.position.x = this.WIDTH - 100;
+        this.eye2.sprite.position.x = this.WIDTH - 400;
         this.eye2.sprite.position.y = 100;
         this.stage.addChild(this.eye2.sprite);
      }
