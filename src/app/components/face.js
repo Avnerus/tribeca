@@ -45,9 +45,13 @@ componentFactory.createComponent('face', `
         console.log("Adding eyes");
         this.eyes = new Eye();
         this.eyes.sprite.position.x = this.WIDTH / 2;
-        this.eyes.sprite.position.y = 100;
+        this.eyes.sprite.position.y = 150;
         this.stage.addChild(this.eyes.sprite);
 
+         // Change mood every 10 seconds
+         setInterval(() => {
+             this.eyes.randomMood();
+         },10000);
         // Blink every 3 seconds
         setInterval(() => {
             this.eyes.blink();
@@ -68,9 +72,14 @@ componentFactory.createComponent('face', `
              // Color BG
              // this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
-             loader.add('eye', "assets/eye.png");
-             loader.add('eyes', "assets/eyes.png");
-             loader.add('blink', "assets/blink.png");
+             loader.add('happy', "assets/happy.png");
+             loader.add('Mad', "assets/Mad.png");
+             loader.add('noPupils', "assets/noPupils.png");
+             loader.add('normal', "assets/normal.png");
+             loader.add('sad', "assets/sad.png");
+             loader.add('surprised', "assets/surprised.png");
+             loader.add('WINK', "assets/WINK.png");
+             loader.add('Pupil', "assets/Pupil.png");
              loader.add('bg', "assets/bg.jpg");
 
              loader.once('complete', () => {
