@@ -22,6 +22,7 @@ componentFactory.createComponent('text', `
          let self = this;
          function sayLine() {
              self.currentMessage = self.remainingLines[0];
+             meSpeak.speak(self.currentMessage); //{voice: "en/en-us", variant: "m3", pitch: 35, speed: 160}
              self.update();
              if (self.remainingLines.length > 1) {
                  self.remainingLines = self.remainingLines.slice(1);
@@ -33,6 +34,17 @@ componentFactory.createComponent('text', `
          }
          sayLine();
      }
-});
+
+     this.speakIt = function() {
+         let parts = [
+             { text: "Travel to",      voice: "en/en-us", variant: "m3" },
+             { text: "Paris",          voice: "fr",       variant: "f5" },
+             { text: "at light speed", voice: "en/en-us", variant: "m3" }
+         ];
+
+         // called by button
+         meSpeak.speakMultipart(parts);
+     }
+ });
 
 

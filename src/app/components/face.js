@@ -50,6 +50,10 @@ componentFactory.createComponent('face', `
         this.eyes.sprite.position.y = 150;
         this.stage.addChild(this.eyes.sprite);
 
+         meSpeak.loadConfig("/assets/mespeak/mespeak_config.json");
+         meSpeak.loadVoice("/assets/mespeak/voices/en/en-us.json");
+         meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
+
          // Change mood every 10 seconds
          setInterval(() => {
              this.eyes.randomMood();
@@ -58,6 +62,7 @@ componentFactory.createComponent('face', `
         setInterval(() => {
             this.eyes.blink();
         },3000);
+
      }
 
      this.on('mount', () => {
@@ -75,6 +80,9 @@ componentFactory.createComponent('face', `
              // this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
              loader.add('bg', "assets/bg.jpg");
+             loader.add('mspeak_config', "assets/mespeak/mespeak_config.json");
+             loader.add('en-us', "assets/mespeak/voices/en/en-us.json");
+             loader.add('fr', "assets/mespeak/voices/fr.json");
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
