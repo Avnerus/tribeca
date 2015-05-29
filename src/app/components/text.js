@@ -35,17 +35,6 @@ componentFactory.createComponent('text', `
          }
          sayLine();
      }
-
-     this.speakIt = function() {
-         let parts = [
-             { text: "Travel to",      voice: "en/en-us", variant: "m3" },
-             { text: "Paris",          voice: "fr",       variant: "f5" },
-             { text: "at light speed", voice: "en/en-us", variant: "m3" }
-         ];
-
-         // called by button
-         meSpeak.speakMultipart(parts);
-     }
  });
 
 

@@ -7,11 +7,13 @@ export default class Logic {
         this.output = output;
         this.selfie = selfie;
         this.input = input;
+        this.mood = "calm"; //calm/ingage/crazy
     }
     run() {
-        this.output.say(["Hello!", "How are you?", "Smile!"], () => {
+        this.output.say(["Psss", "Hi there", "Come here", "Hey good looking", "Hey handsome", "How about a selfie together?", "Hi, let's take a Selfie together"], () => {
             console.log("Finished lines");
             this.selfie.snap();
+            this.output.say(["What is your name?"]);
         });
     }
 };

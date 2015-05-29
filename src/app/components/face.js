@@ -65,7 +65,7 @@ componentFactory.createComponent('face', `
      this.initSpeak = function() {
         meSpeak.loadConfig("/assets/mespeak/mespeak_config.json");
         meSpeak.loadVoice("/assets/mespeak/voices/en/en-us.json");
-        meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
+//        meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
      }
 
      this.on('mount', () => {
