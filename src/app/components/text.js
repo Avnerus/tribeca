@@ -9,7 +9,7 @@ componentFactory.createComponent('text', `
  <style>
      text {
          position: fixed;
-         margin-top: 250px;
+         margin-top: 0px;
          left: 50%;
          transform: translate(-50%);
          font-size: 48px;

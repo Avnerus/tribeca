@@ -4,8 +4,7 @@ import componentFactory from '../component-factory';
 import miscUtil from '../util/misc';
 import gfxUtil from '../util/gfx';
 
-
-import Eye from '../objects/eye';
+import EyeCam from '../objects/eyecam';
 import BGAnim from '../objects/bganim';
 
 import text from './text';
@@ -45,23 +44,13 @@ componentFactory.createComponent('face', `
      }
 
 
-     this.addEyes = function() {
+     this.addEye = function() {
         console.log("Adding eyes");
-        this.eyes = new Eye();
-        this.eyes.sprite.position.x = this.WIDTH / 2;
-        this.eyes.sprite.position.y = 150;
-        this.stage.addChild(this.eyes.sprite);
-
-
-         // Change mood every 10 seconds
-         setInterval(() => {
-             this.eyes.randomMood();
-         },10000);
-        // Blink every 3 seconds
-        setInterval(() => {
-            this.eyes.blink();
-        },3000);
-
+        this.eyecam = new EyeCam();
+        this.eyecam.init();
+        this.eyecam.sprite.position.x = this.WIDTH / 2;
+        this.eyecam.sprite.position.y = this.HEIGHT / 2;
+        this.stage.addChild(this.eyecam.sprite);
      }
 
      this.initSpeak = function() {
@@ -92,6 +81,9 @@ componentFactory.createComponent('face', `
              loader.add('bg05', "assets/bg05.png");
              loader.add('bg06', "assets/bg06.png");
 
+             // Eye
+             loader.add('eyecam', "assets/eyecam.png");
+
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
@@ -99,7 +91,7 @@ componentFactory.createComponent('face', `
                 let bgAnim = new BGAnim();
                 bgAnim.init();
                 this.stage.addChild(bgAnim.clip);
-                //   this.addEyes();
+                this.addEye();
                 this.initSpeak();
 
                 // Init logic
