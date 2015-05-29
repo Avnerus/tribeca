@@ -3,7 +3,10 @@ import componentFactory from '../component-factory';
 
 componentFactory.createComponent('inputarea', `
 
- <textarea>Your text</textarea> 
+ <form onsubmit="{ send }">
+    <input class="message-input" name="input">
+ </form>
+
 
  <style>
      inputarea {
@@ -12,14 +15,15 @@ componentFactory.createComponent('inputarea', `
          transform: translate(-50%);
          bottom: 10%;
      }
-     inputarea > textarea {
+     inputarea .message-input   {
          background-color: transparent;
-         border-style: none;
-         font-size: 20px;
+         border-style: solid;
+         font-size: 32px;
      }
  </style>
  `,
  function(opts) {
+
      this.currentMessage = "";
      this.say = (lines) => {
          this.remainingLines = lines.slice(0);
@@ -33,6 +37,10 @@ componentFactory.createComponent('inputarea', `
              }
          }
          sayLine();
+     }
+
+     this.send = function() {
+         console.log("Send message! ", this.input.value);
      }
 });
 
