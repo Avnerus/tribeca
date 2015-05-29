@@ -1,5 +1,6 @@
 import riot from 'riot';
 import componentFactory from '../component-factory';
+import miscUtil from '../util/misc';
 
 componentFactory.createComponent('text', `
 

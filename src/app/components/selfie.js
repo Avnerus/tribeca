@@ -28,6 +28,14 @@ componentFactory.createComponent('selfie', `
          Webcam.snap( function(data_uri) {
              console.log(data_uri);
              document.getElementById('result').innerHTML = '<img src="'+data_uri+'"/>';
+             Webcam.on( 'uploadProgress', function(progress) {
+                console.log("Upload progress: ", progress); 
+             });
+
+             Webcam.on( 'uploadComplete', function(code, text) {
+                 console.log("Upload complete!", code, text);
+             });
+             Webcam.upload(data_uri, '/upload');
          });
      }
 

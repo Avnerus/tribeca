@@ -50,9 +50,6 @@ componentFactory.createComponent('face', `
         this.eyes.sprite.position.y = 150;
         this.stage.addChild(this.eyes.sprite);
 
-         meSpeak.loadConfig("/assets/mespeak/mespeak_config.json");
-         meSpeak.loadVoice("/assets/mespeak/voices/en/en-us.json");
-         meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
 
          // Change mood every 10 seconds
          setInterval(() => {
@@ -63,6 +60,12 @@ componentFactory.createComponent('face', `
             this.eyes.blink();
         },3000);
 
+     }
+
+     this.initSpeak = function() {
+        meSpeak.loadConfig("/assets/mespeak/mespeak_config.json");
+        meSpeak.loadVoice("/assets/mespeak/voices/en/en-us.json");
+        meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
      }
 
      this.on('mount', () => {
@@ -90,6 +93,7 @@ componentFactory.createComponent('face', `
                 let bg = PIXI.Sprite.fromFrame("assets/bg.jpg");
                 this.stage.addChild(bg);
                 //   this.addEyes();
+                this.initSpeak();
 
                 // Init logic
                 this.logic = new Logic();
