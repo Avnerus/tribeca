@@ -8,11 +8,14 @@ componentFactory.createComponent('text', `
 
  <style>
      text {
+         font-family: akashi;
          position: fixed;
          margin-top: 0px;
          left: 50%;
          transform: translate(-50%);
-         font-size: 48px;
+         font-size: 32;
+         text-shadow: 4px 4px 4px #000000;
+         color: white;
      }
  </style>
  `,

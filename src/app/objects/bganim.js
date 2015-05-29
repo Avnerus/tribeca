@@ -20,6 +20,13 @@ export default class BGAnim extends GameObject {
         this.clip.visible = true;
         this.clip.animationSpeed = 0.1;
         this.clip.play();
+
+        // A bit of a blur
+        this.blurFilter = new PIXI.filters.BlurFilter();
+        this.blurFilter.blur = 0.5;
+        this.clip.filters = [
+           this.blurFilter
+        ];
     }
 
 };

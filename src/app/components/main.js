@@ -13,6 +13,10 @@ componentFactory.createComponent('main', `
     body {
         margin: 0;
     }
+    @font-face {
+        font-family: akashi;
+        src: url(/assets/AKASHI.TTF);
+    }
 </style>
  
  `,
