@@ -6,6 +6,8 @@ import gfxUtil from '../util/gfx';
 
 
 import Eye from '../objects/eye';
+import BGAnim from '../objects/bganim';
+
 import text from './text';
 import inputarea from './inputarea';
 import selfie from './selfie';
@@ -81,16 +83,22 @@ componentFactory.createComponent('face', `
              // Color BG
              // this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
-             loader.add('bg', "assets/bg.jpg");
-             loader.add('mspeak_config', "assets/mespeak/mespeak_config.json");
-             loader.add('en-us', "assets/mespeak/voices/en/en-us.json");
-             loader.add('fr', "assets/mespeak/voices/fr.json");
+
+             // Background frames
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg02', "assets/bg02.png");
+             loader.add('bg03', "assets/bg03.png");
+             loader.add('bg04', "assets/bg04.png");
+             loader.add('bg05', "assets/bg05.png");
+             loader.add('bg06', "assets/bg06.png");
+
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
                 // Picture BG
-                let bg = PIXI.Sprite.fromFrame("assets/bg.jpg");
-                this.stage.addChild(bg);
+                let bgAnim = new BGAnim();
+                bgAnim.init();
+                this.stage.addChild(bgAnim.clip);
                 //   this.addEyes();
                 this.initSpeak();
 
