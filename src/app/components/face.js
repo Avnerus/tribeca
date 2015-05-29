@@ -7,11 +7,14 @@ import gfxUtil from '../util/gfx';
 
 import Eye from '../objects/eye';
 import text from './text';
+import inputarea from './inputarea';
+
 import Logic from '../model/logic'
 
 componentFactory.createComponent('face', `
 
  <text></text>
+ <inputarea></inputarea>
 
  <style>
      face {
