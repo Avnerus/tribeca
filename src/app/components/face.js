@@ -8,11 +8,13 @@ import gfxUtil from '../util/gfx';
 import Eye from '../objects/eye';
 import text from './text';
 import inputarea from './inputarea';
+import selfie from './selfie';
 
 import Logic from '../model/logic'
 
 componentFactory.createComponent('face', `
 
+ <selfie></selfie>
  <text></text>
  <inputarea></inputarea>
 
@@ -72,14 +74,6 @@ componentFactory.createComponent('face', `
              // Color BG
              // this.stage.addChild(gfxUtil.rectangle(0, 0, this.WIDTH, this.HEIGHT, 0x52FFBF, 0x000000, 0));
              let loader = PIXI.loader;
-             loader.add('happy', "assets/happy.png");
-             loader.add('Mad', "assets/Mad.png");
-             loader.add('noPupils', "assets/noPupils.png");
-             loader.add('normal', "assets/normal.png");
-             loader.add('sad', "assets/sad.png");
-             loader.add('surprised', "assets/surprised.png");
-             loader.add('WINK', "assets/WINK.png");
-             loader.add('Pupil', "assets/Pupil.png");
              loader.add('bg', "assets/bg.jpg");
 
              loader.once('complete', () => {
@@ -87,11 +81,11 @@ componentFactory.createComponent('face', `
                 // Picture BG
                 let bg = PIXI.Sprite.fromFrame("assets/bg.jpg");
                 this.stage.addChild(bg);
-                this.addEyes();
+                //   this.addEyes();
 
                 // Init logic
                 this.logic = new Logic();
-                this.logic.initWithIO(this.tags['text']);
+                this.logic.init(this.tags['inputarea'], this.tags['text'], this.tags['selfie']);
                 this.logic.run();
 
                 draw();

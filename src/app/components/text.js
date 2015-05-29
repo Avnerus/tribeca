@@ -17,7 +17,7 @@ componentFactory.createComponent('text', `
  `,
  function(opts) {
      this.currentMessage = "";
-     this.say = (lines) => {
+     this.say = (lines, onComplete) => {
          this.remainingLines = lines.slice(0);
          let self = this;
          function sayLine() {
@@ -26,6 +26,9 @@ componentFactory.createComponent('text', `
              if (self.remainingLines.length > 1) {
                  self.remainingLines = self.remainingLines.slice(1);
                  setTimeout(sayLine, 2000);
+             } else {
+                 console.log("Running", onComplete);
+                 setTimeout(onComplete, 1000);
              }
          }
          sayLine();
