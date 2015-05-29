@@ -26,19 +26,12 @@ componentFactory.createComponent('inputarea', `
 
      this.onSend = null;
 
-     this.currentMessage = "";
-     this.say = (lines) => {
-         this.remainingLines = lines.slice(0);
-         let self = this;
-         function sayLine() {
-             self.currentMessage = self.remainingLines[0];
-             self.update();
-             if (self.remainingLines.length > 1) {
-                 self.remainingLines = self.remainingLines.slice(1);
-                 setTimeout(sayLine, 2000);
-             }
-         }
-         sayLine();
+     this.hide = function() {
+         $(this.input).hide();
+     }
+
+     this.show = function() {
+         $(this.input).show();
      }
 
      this.send = function() {

@@ -12,35 +12,64 @@ export default class Logic {
 
         this.statesActions=[
             ()=>{ //0
+                // TODO: choose random
                 input.onSend = null;
+                input.hide();
                 this.selfie.clear();
-                this.output.say(["Hi there", "Come here", "Hey good looking", "Hey handsome", "How about a selfie together?", "Hi, let's take a Selfie together"]
+                this.output.say(["Hi handsome", "Come here"]
                     , () => {
                         console.log("Finished lines");
-                        //this.selfie.snap();
-                        setTimeout(this.statesActions[1],2000);
+                        this.statesActions[1]();
                     } );
             },
             ()=>{ //1
-                this.output.say(["What is your name?"]);
+                // TODO: restart on no response
+                input.show();
+                this.output.say(["Let's take a Selfie together! What is your name?"]);
                 input.onSend = this.statesActions[2];
             },
             ()=>{ //2
+                input.hide();
                 input.onSend = null;
                 this.name = input.input.value;
-                this.output.say(["Hi "+this.name+". Please face the camera and hug me"]
-                , () => {
-                    this.selfie.snap();
-                    setTimeout(this.statesActions[3], 2000);
-                } );
+                this.statesActions[3]();
             },
             ()=>{ //3
-                this.selfie.snap();
-                setTimeout(this.statesActions[4], 2000);
+                this.output.say(["Hi "+this.name+". Please face the camera and hug me","3","2","1"]
+                    , () => {
+                        this.selfie.snap();
+                        setTimeout(this.statesActions[4], 2000);
+                    } );
             },
-            ()=>{ //4
+            ()=>{ //4 - IMAGE IS GOOD?
+                input.show();
+                input.onSend = this.statesActions[5];
+                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!", "Shall I send it to you?"])
+            },
+            ()=>{ //5 - YES
+                // TODO: choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["No? Ok "+this.name+" let's take another one"]
+                        , () => {
+                            this.statesActions[3]();
+                        } );
+                }
+                else{
+                    input.show();
+                    input.onSend = this.statesActions[6];
+                    this.output.say(["What's Your e-mail?"]);
+                }
+            },
+            ()=>{ //6 - NO
+                // TODO: choice
+                input.show();
                 input.onSend = this.statesActions[0];
-                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!", "Shall I send it to you?", "What's Your e-mail?"])
+                this.output.say(["mmm...I don’t like myself so much, Let's take another one…"]
+                    , () => {
+                        this.statesActions[3]();
+                    } );
             }
         ]
 
