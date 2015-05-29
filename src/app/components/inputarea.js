@@ -32,6 +32,7 @@ componentFactory.createComponent('inputarea', `
      }
 
      this.show = function() {
+         this.input.value = "";
          $(this.input).show();
      }
 

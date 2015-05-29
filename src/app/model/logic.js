@@ -43,7 +43,7 @@ export default class Logic {
             },
             ()=>{ //4 - IMAGE IS GOOD?
                 this.selfie.clear();
-                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!", "Shall I send it to you?"]
+                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!"]
                     , () => {
                     this.statesActions[5]();
                 } );
@@ -72,7 +72,7 @@ export default class Logic {
             ()=>{ //7 - NO
                 // TODO: choice
                 input.show();
-                input.onSend = this.statesActions[0];
+                input.onSend = null;
                 this.output.say(["mmm...I don’t like myself so much, Let's take another one…"]
                     , () => {
                         this.statesActions[3]();
