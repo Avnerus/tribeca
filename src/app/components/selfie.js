@@ -38,6 +38,9 @@ componentFactory.createComponent('selfie', `
              Webcam.upload(data_uri, '/upload');
          });
      }
+     this.clear = function() {
+         document.getElementById('result').innerHTML = '';
+     }
 
      this.on('mount', () => {
          if (miscUtil.isBrowser()) {

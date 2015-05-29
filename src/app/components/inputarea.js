@@ -24,6 +24,8 @@ componentFactory.createComponent('inputarea', `
  `,
  function(opts) {
 
+     this.onSend = null;
+
      this.currentMessage = "";
      this.say = (lines) => {
          this.remainingLines = lines.slice(0);
@@ -40,7 +42,11 @@ componentFactory.createComponent('inputarea', `
      }
 
      this.send = function() {
+        
          console.log("Send message! ", this.input.value);
+         if (this.onSend) {
+             this.onSend(this.input.value);
+         }
      }
 });
 
