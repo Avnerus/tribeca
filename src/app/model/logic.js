@@ -22,10 +22,9 @@ export default class Logic {
 
         this.statesActions=[
             ()=>{ //0
-                // TODO: choose random
                 input.onSend = null;
-                input.hide();
                 this.selfie.clear();
+                input.hide();
                 this.output.say(["Hi handsome", "Come here"]
                     , () => {
                         console.log("Finished lines");
@@ -47,6 +46,7 @@ export default class Logic {
                 this.goToState(3);
             },
             ()=>{ //3
+                input.hide();
                 this.output.say(["Hi "+this.name+". Please face the camera and hug me","3","2","1"]
                     , () => {
                         this.selfie.snap();
