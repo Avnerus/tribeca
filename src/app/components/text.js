@@ -26,14 +26,13 @@ componentFactory.createComponent('text', `
          let self = this;
          function sayLine() {
              self.currentMessage = self.remainingLines[0];
-             meSpeak.speak(self.currentMessage); //{voice: "en/en-us", variant: "m3", pitch: 35, speed: 160}
              self.update();
              if (self.remainingLines.length > 1) {
                  self.remainingLines = self.remainingLines.slice(1);
-                 setTimeout(sayLine, 2000);
+                 meSpeak.speak(self.currentMessage,"{variant: 'm6', pitch: 100, speed: 175, amplitude: 200}",sayLine);//{voice: "en/en-us", variant: "m6", pitch: 100, speed: 175, amplitude: 200}
              } else {
                  console.log("Running", onComplete);
-                 setTimeout(onComplete, 1000);
+                 meSpeak.speak(self.currentMessage,"",onComplete);
              }
          }
          sayLine();
