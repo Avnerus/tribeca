@@ -35,15 +35,18 @@ componentFactory.createComponent('selfie', `
          height: 951px;
          z-index: 2;
          top: 30px;
+         display: none;
      }
  </style>
  `,
  function(opts) {
      console.log("Init selfie tag");
+     var self = this;
      this.snap = function() {
          Webcam.snap( function(data_uri) {
              console.log(data_uri);
              document.getElementById('result').innerHTML = '<img src="'+data_uri+'"/>';
+             $(self.root).find('#poleroid').show(); 
              Webcam.on( 'uploadProgress', function(progress) {
                 console.log("Upload progress: ", progress); 
              });
@@ -55,6 +58,7 @@ componentFactory.createComponent('selfie', `
          });
      }
      this.clear = function() {
+         $(self.root).find('#poleroid').hide();
          document.getElementById('result').innerHTML = '';
      }
 
