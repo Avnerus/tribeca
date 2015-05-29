@@ -8,7 +8,7 @@ import hooks from 'feathers-hooks';
 
 import bodyParser from 'body-parser';
 import session from 'express-session';
-
+;
 import Q from 'q';
 import FS from 'fs';
 import _ from 'underscore'
@@ -20,6 +20,10 @@ import routes from '../app/routes';
 import services from './services';
 
 import socketUtil from '../app/util/socket';
+
+import Sensor from './sensor'
+
+import PrimusEmitter from 'primus-emitter';
 
 let app = feathers();
 
@@ -55,6 +59,10 @@ app.set('view engine', 'html'); // register the template engine
 routes.runRoutingTable(app);
 
 
+// Init sensor
+const sensor = new Sensor();
+sensor.init();
+
 // Server routes
 app.configure(
     feathers.rest()
@@ -63,6 +71,11 @@ app.configure(
     transformer: 'websockets'
 
 }, function(primus) {
+    console.log("Primus loaded");
+    primus.on('connection', function(spark) {
+        console.log("Connection!");
+        sensor.setSpark(spark);
+    })
 }))
 .configure(hooks())
 .use(bodyParser.json())
@@ -127,6 +140,6 @@ let server =
 
 
     // Init the loopback socket connection
-    socketUtil.initWithUrl('http://localhost:3000');
+    //socketUtil.initWithUrl('http://localhost:3000');
 });
 

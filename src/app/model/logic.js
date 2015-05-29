@@ -1,3 +1,5 @@
+import socketUtil from '../util/socket'
+
 export default class Logic {
     constructor() {
         console.log("Logic constructed");
@@ -8,6 +10,12 @@ export default class Logic {
         this.selfie = selfie;
         this.input = input;
         this.mood = "calm"; //calm/ingage/crazy
+        this.run(); // remove whon motion detection activated
+
+        socketUtil.client.on('motion_detected', () => {
+            console.log("Motion detected!! Running logic");
+            this.run();
+        });
     }
     run() {
         this.output.say(["Psss", "Hi there", "Come here", "Hey good looking", "Hey handsome", "How about a selfie together?", "Hi, let's take a Selfie together"], () => {

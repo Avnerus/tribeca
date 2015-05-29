@@ -67,7 +67,6 @@ componentFactory.createComponent('face', `
         meSpeak.loadVoice("/assets/mespeak/voices/en/en-us.json");
 //        meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
      }
-
      this.on('mount', () => {
          if (miscUtil.isBrowser()) {
              console.log("Init PIXI.JS");
@@ -98,7 +97,6 @@ componentFactory.createComponent('face', `
                 // Init logic
                 this.logic = new Logic();
                 this.logic.init(this.tags['inputarea'], this.tags['text'], this.tags['selfie']);
-                this.logic.run();
 
                 draw();
              });
