@@ -29,7 +29,7 @@ componentFactory.createComponent('text', `
              self.update();
              if (self.remainingLines.length > 1) {
                  self.remainingLines = self.remainingLines.slice(1);
-                 meSpeak.speak(self.currentMessage,"{variant: 'm6', pitch: 100, speed: 175, amplitude: 200}",sayLine);//{voice: "en/en-us", variant: "m6", pitch: 100, speed: 175, amplitude: 200}
+                 meSpeak.speak(self.currentMessage,"{pitch: 100, speed: 175, amplitude: 200}",sayLine);//{voice: "en/en-us", variant: "m6", pitch: 100, speed: 175, amplitude: 200}
              } else {
                  console.log("Running", onComplete);
                  meSpeak.speak(self.currentMessage,"",onComplete);

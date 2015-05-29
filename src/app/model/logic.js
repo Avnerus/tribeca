@@ -38,15 +38,22 @@ export default class Logic {
                 this.output.say(["Hi "+this.name+". Please face the camera and hug me","3","2","1"]
                     , () => {
                         this.selfie.snap();
-                        setTimeout(this.statesActions[4], 2000);
+                        setTimeout(this.statesActions[4], 3000);
                     } );
             },
             ()=>{ //4 - IMAGE IS GOOD?
-                input.show();
-                input.onSend = this.statesActions[5];
-                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!", "Shall I send it to you?"])
+                this.selfie.clear();
+                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!", "Shall I send it to you?"]
+                    , () => {
+                    this.statesActions[5]();
+                } );
             },
-            ()=>{ //5 - YES
+            ()=>{ //5 - IMAGE IS GOOD?
+                input.show();
+                input.onSend = this.statesActions[6];
+                this.output.say(["Shall I send it to you?"])
+            },
+            ()=>{ //6 - YES
                 // TODO: choice
                 if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
                     input.hide();
@@ -58,11 +65,11 @@ export default class Logic {
                 }
                 else{
                     input.show();
-                    input.onSend = this.statesActions[6];
+                    input.onSend = this.statesActions[7];
                     this.output.say(["What's Your e-mail?"]);
                 }
             },
-            ()=>{ //6 - NO
+            ()=>{ //7 - NO
                 // TODO: choice
                 input.show();
                 input.onSend = this.statesActions[0];
