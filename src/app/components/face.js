@@ -35,6 +35,26 @@ componentFactory.createComponent('face', `
        requestAnimationFrame(draw);
     }
 
+    function doFullScreen() {
+        console.log("Going full screen!")
+        var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !==     null) ||    // alternative standard method  
+                (document.mozFullScreen || document.webkitIsFullScreen);
+
+        var docElm = document.documentElement;
+        if (!isInFullScreen) {
+
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            }
+            else if (docElm.mozRequestFullScreen) {
+                docElm.mozRequestFullScreen();
+            }
+            else if (docElm.webkitRequestFullScreen) {
+                docElm.webkitRequestFullScreen();
+            }
+        }
+    }
+
     this.WIDTH = 1920;
     this.HEIGHT = 1080;
 
@@ -59,6 +79,7 @@ componentFactory.createComponent('face', `
 //        meSpeak.loadVoice("/assets/mespeak/voices/fr.json");
      }
      this.on('mount', () => {
+         var self = this;
          if (miscUtil.isBrowser()) {
              console.log("Init PIXI.JS");
              // Init PIXI
@@ -84,6 +105,20 @@ componentFactory.createComponent('face', `
              // Eye
              loader.add('eyecam', "assets/eyecam.png");
 
+
+
+             window.onresize = function() {
+                console.log("Window resize!");
+                self.renderer.view.style.width = window.innerWidth + "px";
+                self.renderer.view.style.height = window.innerHeight + "px";
+             }
+             // TAB KEY FULLSCREEN
+             document.addEventListener("keydown", function(e) {
+              if (e.keyCode == 9) {
+                  console.log("Tab pressed!!");
+                doFullScreen();
+              }
+             }, false);
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");

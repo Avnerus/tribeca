@@ -4,21 +4,37 @@ import miscUtil from '../util/misc'
 
 componentFactory.createComponent('selfie', `
 
+ <div id="poleroid">
+ </div>
  <div id="result"></div>
  <div id="camera"></div>
 
 
  <style>
      selfie #camera {
-         width: 400px;
-         height: 300px;
+         width: 755px ;
+         height: 687px;
          position: fixed;
          left: 99999px;
      }
      selfie #result {
-        position: fixed;
-        left: 50%;
-        transform: translate(-50%);
+         width: 755px;
+         height: 687px;
+         position: fixed;
+         left: 50%;
+         transform: translate(-50%);
+         z-index: 1;
+         top: 110px;
+     }
+     selfie #poleroid {
+         background-image: url("/assets/poleroid.png");
+         position: fixed;
+         left: 50%;
+         transform: translate(-50%);
+         width: 862px;
+         height: 951px;
+         z-index: 2;
+         top: 30px;
      }
  </style>
  `,
