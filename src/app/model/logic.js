@@ -4,11 +4,12 @@ export default class Logic {
     constructor() {
         console.log("Logic constructed");
     }
-    init(input, output, selfie) {
-        console.log("Initialising Logics with ", input, output, selfie);
+    init(input, output, selfie, timer) {
+        console.log("Initialising Logics with ", input, output, selfie, timer);
         this.output = output;
         this.selfie = selfie;
         this.input = input;
+        this.timer = timer;
 
         this.statesActions=[
             ()=>{ //0

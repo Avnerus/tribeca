@@ -12,6 +12,7 @@ import inputarea from './inputarea';
 import selfie from './selfie';
 
 import Logic from '../model/logic'
+import Timer from '../model/timer'
 
 componentFactory.createComponent('face', `
 
@@ -25,13 +26,18 @@ componentFactory.createComponent('face', `
  </style>
  `,
  function(opts) {
-    var self = this; 
+    let self = this; 
+    let time = 0;
 
     function draw() {
         if (!self || !self.renderer) {
             return;
         }
+       let now = new Date().getTime();
+       let dt = now - (time || now);
+       self.timer.update(dt);
        self.renderer.render(self.stage);
+       time = now;
        requestAnimationFrame(draw);
     }
 
@@ -129,9 +135,15 @@ componentFactory.createComponent('face', `
                 this.addEye();
                 this.initSpeak();
 
+                // Init timer
+                console.log("Trying to init timer");
+                this.timer = new Timer();
+                this.timer.init();               
+
                 // Init logic
                 this.logic = new Logic();
-                this.logic.init(this.tags['inputarea'], this.tags['text'], this.tags['selfie']);
+                this.logic.init(this.tags['inputarea'], this.tags['text'], this.tags['selfie'], this.timer);
+
 
                 draw();
              });
