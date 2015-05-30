@@ -5,13 +5,14 @@ export default class Logic {
     constructor() {
         console.log("Logic constructed");
     }
-    init(input, output, selfie, yesno, timer) {
-        console.log("Initialising Logics with ", input, output, selfie, yesno, timer);
+    init(input, output, selfie, yesno, timer, crazy) {
+        console.log("Initialising Logics with ", input, output, selfie, yesno, timer, crazy);
         this.output = output;
         this.selfie = selfie;
         this.input = input;
         this.yesno = yesno;
         this.timer = timer;
+        this.crazy = crazy;
 
         this.timer.onThreshold = (number) => {this.onThreshold(number)}
         window.onmousemove = ()=> {
@@ -343,6 +344,13 @@ export default class Logic {
         this.histerical = true;
         this.histericalState = number;
         this.histericalActions[number]();
+    }
+
+    showCrazy() {
+        this.crazy.container.visible = true;
+    }
+    hideCrazy() {
+        this.crazy.container.visible = false;
     }
 
     onThreshold(time) { // 6000, 9000, 12000, 50000

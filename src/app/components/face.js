@@ -115,7 +115,6 @@ componentFactory.createComponent('face', `
              // Crazy assets
              let crazyAssets = 
                  [
-                 'moon',
                  'cake',
                  'piramid',
                  'crazyeye',
@@ -133,20 +132,12 @@ componentFactory.createComponent('face', `
              ];
 
 
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-             loader.add('bg01', "assets/bg01.png");
-
              // Eye
              loader.add('eyecam', "assets/eyecam.png");
 
              // Crazy assets
              for (let i = 0; i < crazyAssets.length; i++) {
-                 loader.add(crazyAssets[i], crazyAssets[i] + '.png');
+                 loader.add(crazyAssets[i], "assets/" + crazyAssets[i] + '.png');
              }
 
 
@@ -170,7 +161,6 @@ componentFactory.createComponent('face', `
                 let bgAnim = new BGAnim();
                 bgAnim.init();
                 this.stage.addChild(bgAnim.clip);
-                this.addEye();
                 this.initSpeak();
 
                 // Init timer
@@ -179,7 +169,15 @@ componentFactory.createComponent('face', `
                 this.timer.init();               
 
                 // Init crazy items
+                this.crazy = new Crazy();
+                this.crazy.init(crazyAssets);
 
+                this.crazy.container.position.x = this.WIDTH / 2;
+                this.crazy.container.position.y = this.HEIGHT / 2;
+                this.crazy.container.visible = false;
+                this.stage.addChild(this.crazy.container);
+
+                this.addEye();
 
                 // Init logic
                 this.logic = new Logic();
@@ -188,9 +186,9 @@ componentFactory.createComponent('face', `
                     this.tags['text'], 
                     this.tags['selfie'], 
                     this.tags['yesno'],
-                    this.timer
+                    this.timer,
+                    this.crazy
                 );
-
 
                 draw();
              });

@@ -15,6 +15,7 @@ componentFactory.createComponent('inputarea', `
          transform: translate(-50%);
          bottom: 10%;
          z-index: 4;
+         color: white;
      }
      inputarea .message-input   {
          background-color: transparent;

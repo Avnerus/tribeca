@@ -4,11 +4,11 @@ import miscUtil from '../util/misc'
 
 componentFactory.createComponent('selfie', `
 
- <div id="poleroid">
+ <div show="{showPolaroid}" id="poleroid">
  </div>
- <div id="wanted">
+ <div show="{showWanted}" id="wanted">
  </div>
- <div id="result"></div>
+ <div show="{showResult}" id="result"></div>
  <div id="camera"></div>
 
 
@@ -37,7 +37,6 @@ componentFactory.createComponent('selfie', `
          height: 951px;
          z-index: 2;
          top: 30px;
-         display: none;
      }
     selfie #wanted {
         background-image: url("/assets/wanted.png");
@@ -48,18 +47,23 @@ componentFactory.createComponent('selfie', `
         height: 951px;
         z-index: 2;
         top: 30px;
-        display: none;
     }
  </style>
  `,
  function(opts) {
      console.log("Init selfie tag");
+     this.wanted = false;
+     this.showWanted = false;
+     this.showResult = false;
+
      var self = this;
      this.snap = function() {
          Webcam.snap( function(data_uri) {
              console.log(data_uri);
              document.getElementById('result').innerHTML = '<img src="'+data_uri+'"/>';
-             $(self.root).find('#poleroid').show(); 
+             self.showPolaroid = true;
+             self.showResult = true;
+             self.update();
              Webcam.on( 'uploadProgress', function(progress) {
                 console.log("Upload progress: ", progress); 
              });
@@ -71,8 +75,38 @@ componentFactory.createComponent('selfie', `
          });
      }
      this.clear = function() {
-         $(self.root).find('#poleroid').hide();
-         document.getElementById('result').innerHTML = '';
+         self.showPolaroid = false;
+         self.showResult = false;
+         self.update();
+     }
+
+     this.startWanted = function() {
+         var self = this;
+         function hideWanted() {
+             console.log("Hide wanted");
+             self.showWanted = false;
+             self.showResult = false;
+             self.update();
+             setTimeout(showWanted, 3000);
+         }
+         function showWanted() {
+             if (self.wanted) {
+                 console.log("Show wanted");
+                 self.showWanted = true;
+                 self.showResult = true;
+                 self.update();
+                 setTimeout(hideWanted, 2000);
+             }
+         }
+         this.wanted = true;
+         showWanted();
+     }
+
+     this.stopWanted = function() {
+         this.wanted = false;
+         this.showWanted = false;
+         this.showResult = false;
+         this.update();
      }
 
      this.on('mount', () => {
