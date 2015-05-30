@@ -29,7 +29,12 @@ export default class Timer {
     }
     reset() {
         this.timer = 0;
-        this.thresholds = [5000, 9000, 12000, 15000, 50000];
+<<<<<<< HEAD
+        //this.thresholds = [6000, 9000, 12000];
+        this.thresholds = [6000];
+=======
+        this.thresholds = [6000, 9000, 12000, 50000];
+>>>>>>> 2028e40b1db62c9a7ed9370a91c8113070580f45
     }
     stop() {
         this.reset();

@@ -6,6 +6,7 @@ import gfxUtil from '../util/gfx';
 
 import EyeCam from '../objects/eyecam';
 import BGAnim from '../objects/bganim';
+import Crazy from '../objects/crazy';
 
 import text from './text';
 import inputarea from './inputarea';
@@ -112,7 +113,24 @@ componentFactory.createComponent('face', `
 
 
              // Crazy assets
-             let crazyAssets = ['brain', 'cake', 'crazyeye', 'egg', 'gun', 'heart1', 'heart2', 'heart3', 'piramid','sord', 'spider', 'tear', 'rain1', 'rain2'];
+             let crazyAssets = 
+                 [
+                 'moon',
+                 'cake',
+                 'piramid',
+                 'crazyeye',
+                 'sord', 
+                 'heart1',
+                 'heart2',
+                 'heart3', 
+                 'egg',
+                 'brain',
+                 'rain1', 
+                 'rain2',
+                 'spider', 
+                 'gun',
+                 'tear' 
+             ];
 
 
              loader.add('bg01', "assets/bg01.png");
@@ -125,6 +143,11 @@ componentFactory.createComponent('face', `
 
              // Eye
              loader.add('eyecam', "assets/eyecam.png");
+
+             // Crazy assets
+             for (let i = 0; i < crazyAssets.length; i++) {
+                 loader.add(crazyAssets[i], crazyAssets[i] + '.png');
+             }
 
 
 
@@ -154,6 +177,9 @@ componentFactory.createComponent('face', `
                 console.log("Trying to init timer");
                 this.timer = new Timer();
                 this.timer.init();               
+
+                // Init crazy items
+
 
                 // Init logic
                 this.logic = new Logic();
