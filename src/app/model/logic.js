@@ -326,6 +326,19 @@ export default class Logic {
     }
 
     resetTimer() {
+        if (this.histericalState == 3)
+        {
+            this.timer.stop();
+            this.output.say([this.name+"? Have you come back to me?"]
+            yesno.show();
+            yesno.onAnswer = () => {
+                yesno.hide();
+                if (yesno.answer == 'NO')
+                {
+                    this.currentState = 0;
+                }
+            }
+        }
         this.timer.reset();
         if (this.histerical) {
             this.histerical = false;
@@ -373,7 +386,8 @@ export default class Logic {
         else
             {
                 this.currentState = 0;
-                this.resetTimer();
+                this.histerical = false;
+                this.goToState(this.currentState);
             }
     }
 
