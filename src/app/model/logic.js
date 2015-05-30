@@ -71,14 +71,16 @@ export default class Logic {
                 this.output.say(["Shall I send it to you?"])
                 this.timer.start();
             },
-            ()=>{ //6 - YES
-                // TODO: choice
+            ()=>{ //6 choice
                 if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
                     input.hide();
                     input.onSend = null;
-                    this.output.say(["No? Ok "+this.name+" let's take another one"]
+                    this.output.say(["No? Ok "+this.name+" let's take another one","3","2","1"]
                         , () => {
-                           this.goToState(3);
+                            this.selfie.snap();
+                            setTimeout(() => {
+                                this.goToState(8);
+                            }, 3000);
                         } );
                 }
                 else{
@@ -89,16 +91,189 @@ export default class Logic {
                     this.output.say(["What's Your e-mail?"]);
                 }
             },
-            ()=>{ //7 - NO
+            ()=>{ //7 Weve got email
                 // TODO: choice
                 input.show();
                 input.onSend = null;
-                this.output.say(["mmm...I don’t like myself so much, Let's take another one…"]
+                this.output.say(["Great! You know... Sometimes I feel that people aren’t willing to invest in meaningful relationships anymore... With you it's different."]
                     , () => {
-                        this.goToState(3);
+                        this.goToState(12);
                     } );
+            },
+            ()=>{ //8
+                this.selfie.clear();
+                input.show();
+                input.onSend = () => {
+                    this.goToState(9);
+                }
+                this.output.say(["I think you came out beautiful, shall I send it to you?"])
+                this.timer.start();
+            },
+            ()=>{ //9 choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["No? I'll take one better","3","2","1"]
+                        , () => {
+                            this.selfie.snap();
+                            setTimeout(() => {
+                                this.goToState(10);
+                            }, 3000);
+                        } );
+                }
+                else{
+                    input.show();
+                    input.onSend = () => {
+                        this.goToState(7);
+                    }
+                    this.output.say(["What's Your e-mail?"]);
+                }
+            },
+            ()=>{ //10
+                this.selfie.clear();
+                input.show();
+                input.onSend = () => {
+                    this.goToState(11);
+                }
+                this.output.say(["I Love it! Shall I send it to you?"])
+                this.timer.start();
+            },
+            ()=> { //11 choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["Really? OK, here we go again", "3", "2", "1"]
+                        , () => {
+                            this.selfie.snap();
+                            setTimeout(() => {
+                                this.goToState(4);
+                            }, 3000);
+                        });
+                }
+                else {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["mmm... I don’t like myself so much, Let's take another one...", "3", "2", "1"]
+                        , () => {
+                            this.selfie.snap();
+                            setTimeout(() => {
+                                this.goToState(4);
+                            }, 3000);
+                        });
+                }
+            },
+            ()=>{ //12 facebook
+                input.show();
+                input.onSend = () => {
+                    this.goToState(13);
+                }
+                this.output.say(["What's your facebook? I'll send you a friend request"])
+                this.timer.start();
+            },
+            ()=>{ //13 leave
+                input.show();
+                input.onSend = () => {
+                    this.goToState(14);
+                }
+                this.output.say(["Do you want to leave now?"])
+                this.timer.start();
+            },
+            ()=> { //14 choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["I’m so happy "+this.name+"! You are a true friend"]
+                        , () => {
+                            this.goToState(17);
+                        } );
+                }
+                else {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["Why? Please don’t leave me."]
+                        , () => {
+                            this.goToState(15);
+                        } );
+                }
+            },
+            ()=>{ //15 leave2
+                input.show();
+                input.onSend = () => {
+                    this.goToState(16);
+                }
+                this.output.say(["Pleeeease! will you stay some more?"])
+                this.timer.start();
+            },
+            ()=> { //16 choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["I’m so happy "+this.name+"! You are a true friend"]
+                        , () => {
+                            this.goToState(17);
+                        } );
+                }
+                else {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["Why? Please don’t leave me."]
+                        , () => {
+                            this.goToState(14);
+                        } );
+                }
+            },
+            ()=>{ //17 stay
+                input.show();
+                input.onSend = () => {
+                    this.goToState(16);
+                }
+                this.output.say(["Where are you from?"])
+                this.timer.start();
+            },
+            ()=> { //18
+                input.hide();
+                input.onSend = null;
+                this.output.say(["I love "+input.input.value+". It’s so cool there."]
+                    , () => {
+                        this.goToState(19);
+                    } );
+            },
+            ()=> { //19 leave 3
+                input.show();
+                input.onSend = () => {
+                    this.goToState(20);
+                }
+                this.output.say(["Do you want to leave now?"])
+                this.timer.start();
+            },
+            ()=> { //20 choice
+                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["Great I like having you around."]
+                        , () => {
+                            this.goToState(21);
+                        } );
+                }
+                else {
+                    input.hide();
+                    input.onSend = null;
+                    this.output.say(["Why? Please don’t leave me."]
+                        , () => {
+                            this.goToState(15);
+                        } );
+                }
+            },
+            ()=> { //21 BFF
+                input.show();
+                input.onSend = () => {
+                    this.goToState(21);
+                }
+                this.output.say(["BFF !!"])
+                this.timer.start();
             }
         ]
+
         this.histericalActions = [
             ()=>{ // Histerical 0
                 this.output.say([this.name + "??", "Where are you??"]);
@@ -121,9 +296,10 @@ export default class Logic {
         }
     }
     goToState(number) {
-        this.currentState = number;
-        this.histerical = false;
-        this.statesActions[number]();
+        if (!this.histerical) {
+            this.currentState = number;
+            this.statesActions[number]();
+        }
     }
 
     goHisterical(number) {
