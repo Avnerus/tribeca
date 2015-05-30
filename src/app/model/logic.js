@@ -1,5 +1,6 @@
 import socketUtil from '../util/socket'
 import mathUtil from '../util/math'
+import fetchUtil from '../util/fetch'
 
 export default class Logic {
     constructor() {
@@ -109,6 +110,7 @@ export default class Logic {
                 // TODO: choice
                 input.hide();
                 input.onSend = null;
+                this.sendMail(input.input.value, this.selfie.photoId);
                 this.timer.stop();
             this.output.say(["Great!", "You know...", "Sometimes I feel that people", "aren’t willing to invest", "in meaningful relationships anymore...", "With you it's different."]
                     , () => {
@@ -409,6 +411,14 @@ export default class Logic {
                 this.goIdle();
                 this.histerical = false;
             }
+    }
+
+    sendMail(mail, id) {
+        console.log("Send mail!", mail, id);
+        fetchUtil.postJSON('http://localhost:3000/mail', {"mail": mail, "photoid": id})
+        .then(function(err, data) {
+            console.log("Posted ", err, data);
+        })
     }
 
     goIdle() {

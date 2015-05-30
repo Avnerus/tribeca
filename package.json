@@ -31,6 +31,7 @@
     "gsap": "^1.17.0",
     "isomorphic-fetch": "^2.0.1",
     "json": "^9.0.3",
+    "nodemailer": "^1.3.4",
     "page": "^1.6.2",
     "page.js-express-mapper.js": "^1.0.5",
     "passport": "^0.2.1",

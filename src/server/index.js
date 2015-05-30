@@ -86,12 +86,14 @@ app.configure(
     resave: true,
     saveUninitialized: true
 }))
-.use('/fruit', services.fruit)
-.use('/taste', services.taste)
 .use('/users', services.users)
 
 // Upload 
 app.post('/upload', services.upload);
+
+// Mail
+console.log("Mail service: ", services.mail);
+app.post('/mail', services.mail);
 
 // Authentication setup
 let userService = app.service('users');

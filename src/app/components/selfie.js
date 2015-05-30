@@ -72,6 +72,7 @@ componentFactory.createComponent('selfie', `
 
              Webcam.on( 'uploadComplete', function(code, text) {
                  console.log("Upload complete!", code, text);
+                 self.photoId = text;
              });
              Webcam.upload(data_uri, '/upload');
          });

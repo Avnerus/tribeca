@@ -1,13 +1,14 @@
-import fruitService from './services/fruit';
-import tasteService from './services/taste';
 import userService from './services/users';
 import uploadService from './services/upload';
+import mailService from './services/mail';
+
+console.log("Mail service?", mailService);
 
 const services = {
-    fruit: fruitService,
-    taste: tasteService,
     users: userService,
-    upload: uploadService
+    email: mailService,
+    upload: uploadService,
+    mail: mailService
 };
 
 export default services;

@@ -9,11 +9,13 @@ export default function(req, res) {
 
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received upload:\n\n');
+      let id = Date.now();
+      let name = 'selfies/' + id + '.jpg';
+      req.session.photoId = id.toString();
+
       console.log("Files ", files);
-      res.end(util.inspect({fields: fields, files: files}));
+      res.end(id.toString());
       // Write the file
-      let name = 'selfies/' + Date.now() + '.jpg';
       Q.denodeify(fs.readFile)(files.webcam.path)
       .then(function(data) {
         return Q.denodeify(fs.writeFile)(name, data)
