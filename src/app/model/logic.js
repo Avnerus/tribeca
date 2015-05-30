@@ -23,6 +23,7 @@ export default class Logic {
 
         this.statesActions=[
             ()=>{ //0
+                yesno.hide();
                 input.onSend = null;
                 this.selfie.clear();
                 input.hide();
@@ -64,17 +65,17 @@ export default class Logic {
                 } );
             },
             ()=>{ //5 - IMAGE IS GOOD?
-                input.show();
-                input.onSend = () => {
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(6);
                 }
                 this.output.say(["Shall I send it to you?"])
                 this.timer.start();
             },
             ()=>{ //6 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["No? Ok "+this.name+" let's take another one","3","2","1"]
                         , () => {
                             this.selfie.snap();
@@ -93,26 +94,26 @@ export default class Logic {
             },
             ()=>{ //7 Weve got email
                 // TODO: choice
-                input.show();
+                input.hide();
                 input.onSend = null;
-                this.output.say(["Great! You know... Sometimes I feel that people aren’t willing to invest in meaningful relationships anymore... With you it's different."]
+            this.output.say(["Great!", "You know...", "Sometimes I feel that people aren’t willing to invest in meaningful relationships anymore... With you it's different."]
                     , () => {
                         this.goToState(12);
                     } );
             },
             ()=>{ //8
                 this.selfie.clear();
-                input.show();
-                input.onSend = () => {
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(9);
                 }
                 this.output.say(["I think you came out beautiful, shall I send it to you?"])
                 this.timer.start();
             },
             ()=>{ //9 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["No? I'll take one better","3","2","1"]
                         , () => {
                             this.selfie.snap();
@@ -131,17 +132,17 @@ export default class Logic {
             },
             ()=>{ //10
                 this.selfie.clear();
-                input.show();
-                input.onSend = () => {
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(11);
                 }
                 this.output.say(["I Love it! Shall I send it to you?"])
                 this.timer.start();
             },
             ()=> { //11 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["Really? OK, here we go again", "3", "2", "1"]
                         , () => {
                             this.selfie.snap();
@@ -171,17 +172,18 @@ export default class Logic {
                 this.timer.start();
             },
             ()=>{ //13 leave
-                input.show();
-                input.onSend = () => {
+                this.timer.stop();
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(14);
                 }
                 this.output.say(["Do you want to leave now?"])
                 this.timer.start();
             },
             ()=> { //14 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["I’m so happy "+this.name+"! You are a true friend"]
                         , () => {
                             this.goToState(17);
@@ -197,17 +199,17 @@ export default class Logic {
                 }
             },
             ()=>{ //15 leave2
-                input.show();
-                input.onSend = () => {
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(16);
                 }
                 this.output.say(["Pleeeease! will you stay some more?"])
                 this.timer.start();
             },
             ()=> { //16 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["I’m so happy "+this.name+"! You are a true friend"]
                         , () => {
                             this.goToState(17);
@@ -231,6 +233,7 @@ export default class Logic {
                 this.timer.start();
             },
             ()=> { //18
+                this.timer.stop();
                 input.hide();
                 input.onSend = null;
                 this.output.say(["I love "+input.input.value+". It’s so cool there."]
@@ -239,17 +242,17 @@ export default class Logic {
                     } );
             },
             ()=> { //19 leave 3
-                input.show();
-                input.onSend = () => {
+                yesno.show();
+                yesno.onAnswer = () => {
                     this.goToState(20);
                 }
                 this.output.say(["Do you want to leave now?"])
                 this.timer.start();
             },
             ()=> { //20 choice
-                if (input.input.value.charAt(0) == 'n' || input.input.value.charAt(0) == 'N') {
-                    input.hide();
-                    input.onSend = null;
+                this.timer.stop();
+                yesno.hide();
+                if (yesno.answer == 'NO') {
                     this.output.say(["Great I like having you around."]
                         , () => {
                             this.goToState(21);
@@ -265,6 +268,7 @@ export default class Logic {
                 }
             },
             ()=> { //21 BFF
+                this.timer.stop();
                 input.show();
                 input.onSend = () => {
                     this.goToState(21);
