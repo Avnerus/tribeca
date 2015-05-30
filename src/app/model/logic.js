@@ -23,6 +23,7 @@ export default class Logic {
 
         this.statesActions=[
             ()=>{ //0
+                this.timer.stop();
                 this.location = "";
                 yesno.hide();
                 input.onSend = null;
@@ -329,7 +330,8 @@ export default class Logic {
         if (this.currentState < 3) {
             if (time > 9000) {
                 this.currentState = 0;
-                resetTimer();
+                this.histerical = false;
+                this.goToState(this.currentState);
             }
         }
         else if (time < 9000)
@@ -341,7 +343,7 @@ export default class Logic {
         else
             {
                 this.currentState = 0;
-                resetTimer();
+                this.resetTimer();
             }
     }
 
