@@ -4,11 +4,12 @@ export default class Logic {
     constructor() {
         console.log("Logic constructed");
     }
-    init(input, output, selfie, timer) {
-        console.log("Initialising Logics with ", input, output, selfie, timer);
+    init(input, output, selfie, yesno, timer) {
+        console.log("Initialising Logics with ", input, output, selfie, yesno, timer);
         this.output = output;
         this.selfie = selfie;
         this.input = input;
+        this.yesno = yesno;
         this.timer = timer;
 
         this.timer.onThreshold = (number) => {this.onThreshold(number)}

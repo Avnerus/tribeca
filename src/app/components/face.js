@@ -10,6 +10,7 @@ import BGAnim from '../objects/bganim';
 import text from './text';
 import inputarea from './inputarea';
 import selfie from './selfie';
+import yesno from './yesno';
 
 import Logic from '../model/logic'
 import Timer from '../model/timer'
@@ -19,6 +20,7 @@ componentFactory.createComponent('face', `
  <selfie></selfie>
  <text></text>
  <inputarea></inputarea>
+ <yesno></yesno>
 
  <style>
      face {
@@ -142,7 +144,13 @@ componentFactory.createComponent('face', `
 
                 // Init logic
                 this.logic = new Logic();
-                this.logic.init(this.tags['inputarea'], this.tags['text'], this.tags['selfie'], this.timer);
+                this.logic.init(
+                    this.tags['inputarea'], 
+                    this.tags['text'], 
+                    this.tags['selfie'], 
+                    this.tags['yesno'],
+                    this.timer
+                );
 
 
                 draw();
