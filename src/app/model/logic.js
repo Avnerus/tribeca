@@ -23,6 +23,7 @@ export default class Logic {
 
         this.statesActions=[
             ()=>{ //0
+                this.location = "";
                 yesno.hide();
                 input.onSend = null;
                 this.selfie.clear();
@@ -40,8 +41,10 @@ export default class Logic {
                 input.onSend = () => {
                      this.goToState(2)
                 }
+                this.timer.start();
             },
             ()=>{ //2
+                this.timer.stop();
                 input.hide();
                 input.onSend = null;
                 this.name = input.input.value;
@@ -237,7 +240,8 @@ export default class Logic {
                 this.timer.stop();
                 input.hide();
                 input.onSend = null;
-                this.output.say(["I love "+input.input.value+". It’s so cool there."]
+                this.location = input.input.value
+                this.output.say(["I love "+this.location+". It’s so cool there."]
                     , () => {
                         this.goToState(19);
                     } );
@@ -280,9 +284,15 @@ export default class Logic {
         ]
 
         this.histericalActions = [
-            ()=>{ // Histerical 0
-                this.output.say([this.name + "??", "Where are you??"]);
+            ()=> { // 0
+                this.output.say([this.name + "?"]);
             },
+            ()=> { // 1
+                this.output.say(["Hey " + this.name + " are you there?"]);
+            },
+            ()=> { // 2
+                this.output.say([this.name + " you’re not answering! Hey!"]);
+            }
         ];
 
         socketUtil.client.on('motion_detected', () => {
@@ -290,7 +300,7 @@ export default class Logic {
             this.run();
         });
 
-        this.run(); // remove whon motion detection activated
+        this.run(); // remove when motion detection activated
     }
 
     resetTimer() {
@@ -314,9 +324,25 @@ export default class Logic {
         this.histericalActions[number]();
     }
 
-    onThreshold(time) {
+    onThreshold(time) { // 6000, 9000, 12000, 50000
         console.log("Passed Threshold!!!", time, this);
-        this.goHisterical(0);
+        if (this.currentState < 3) {
+            if (time > 9000) {
+                this.currentState = 0;
+                resetTimer();
+            }
+        }
+        else if (time < 9000)
+            this.goHisterical(0);
+        else if (time < 12000)
+            this.goHisterical(1);
+        else if (time < 30000)
+            this.goHisterical(2);
+        else
+            {
+                this.currentState = 0;
+                resetTimer();
+            }
     }
 
     run() {

@@ -37,7 +37,7 @@ componentFactory.createComponent('text', `
              if (!histerical) {
                  options.pitch = 100;
                  options.speed = 175;
-                 options.amplitude = 200;
+                 options.amplitude = 100;
                  speakLine = self.currentMessage;
              } else {
                  options.pitch = mathUtil.getRandomInt(1, 300);
