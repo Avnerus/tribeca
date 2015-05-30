@@ -32,18 +32,18 @@ componentFactory.createComponent('text', `
 
              let options = {};
              let speakLine;
+             speakLine = self.currentMessage;
 
-             options.variant = "m6";
              if (!histerical) {
                  options.pitch = 100;
                  options.speed = 175;
-                 options.amplitude = 200;
-                 speakLine = self.currentMessage;
+                 options.amplitude = 100;
+                 options.variant = "m6";
              } else {
-                 options.pitch = mathUtil.getRandomInt(1, 300);
+                 options.pitch = mathUtil.getRandomInt(60, 120);
                  options.speed = 20;
-                 options.amplitude = 900;
-                 speakLine = self.currentMessage;
+                 options.amplitude = 200;
+                 options.variant = "croak";
              }
 
 

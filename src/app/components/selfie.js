@@ -6,6 +6,8 @@ componentFactory.createComponent('selfie', `
 
  <div id="poleroid">
  </div>
+ <div id="wanted">
+ </div>
  <div id="result"></div>
  <div id="camera"></div>
 
@@ -37,6 +39,17 @@ componentFactory.createComponent('selfie', `
          top: 30px;
          display: none;
      }
+    selfie #wanted {
+        background-image: url("/assets/wanted.png");
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%);
+        width: 862px;
+        height: 951px;
+        z-index: 2;
+        top: 30px;
+        display: none;
+    }
  </style>
  `,
  function(opts) {

@@ -1,4 +1,5 @@
 import socketUtil from '../util/socket'
+import mathUtil from '../util/math'
 
 export default class Logic {
     constructor() {
@@ -280,8 +281,27 @@ export default class Logic {
 
         this.histericalActions = [
             ()=>{ // Histerical 0
-                this.output.say([this.name + "??", "Where are you??"]);
+                this.output.say([this.name + "??", "Where are you??"], null, true);
             },
+            () => {
+                let self = this;
+                let lines = [
+                    self.name.replace("a","aaaa").replace("o", "ooo").replace("e", "eeee").replace("i","eee"),
+                    self.name + " where are yoooooo??",
+                    self.name + " Pleeeease don't leeeeave meeee!",
+                    "Anyone seen " + self.name + "????",
+                    self.name + " come baaaaaack!"
+
+                ]
+                function histericCall() {
+                    if (self.histerical) {
+                        let speakLine = lines[mathUtil.getRandomInt(0,lines.length)];
+                        self.output.say([speakLine], histericCall, true);
+                    }
+                }
+                histericCall();
+            }
+
         ];
 
         socketUtil.client.on('motion_detected', () => {
@@ -314,7 +334,7 @@ export default class Logic {
 
     onThreshold(time) {
         console.log("Passed Threshold!!!", time, this);
-        this.goHisterical(0);
+        this.goHisterical(1);
     }
 
     run() {

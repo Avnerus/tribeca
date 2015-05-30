@@ -110,6 +110,19 @@ componentFactory.createComponent('face', `
              loader.add('bg05', "assets/bg05.png");
              loader.add('bg06', "assets/bg06.png");
 
+
+             // Crazy assets
+             let crazyAssets = ['brain', 'cake', 'crazyeye', 'egg', 'gun', 'heart1', 'heart2', 'heart3', 'piramid','sord', 'spider', 'tear', 'rain1', 'rain2'];
+
+
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+             loader.add('bg01', "assets/bg01.png");
+
              // Eye
              loader.add('eyecam', "assets/eyecam.png");
 
