@@ -44,6 +44,7 @@ componentFactory.createComponent('yesno', `
 
      this.onAnswer = null;
      this.visible = false;
+     this.answer = "";
 
      this.hide = function() {
          this.visible = false;
@@ -57,6 +58,7 @@ componentFactory.createComponent('yesno', `
 
      this.answerYes = function() {
          console.log("Answer yes!");
+         this.answer = "YES";
          if (this.onAnswer) {
              this.onAnswer("YES");
          }
@@ -64,6 +66,7 @@ componentFactory.createComponent('yesno', `
 
     this.answerNo = function() {
         console.log("Answer No!");
+        this.answer = "NO";
         if (this.onAnswer) {
             this.onAnswer("NO");
         }
