@@ -23,15 +23,20 @@ componentFactory.createComponent('face', `
  <inputarea></inputarea>
  <yesno></yesno>
  <audio name="stevie" src="/assets/stevie.mp3"></audio>
+ <img show="{logoVisible}" id="logo" name"logo" src="/assets/logo.png">
 
  <style>
-     face {
+     face #logo {
+         position: fixed;
+         left: 40px;
+         top: 20px;
      }
  </style>
  `,
  function(opts) {
     let self = this; 
     let time = 0;
+    this.logoVisible = true;
 
     function draw() {
         if (!self || !self.renderer) {
@@ -73,6 +78,14 @@ componentFactory.createComponent('face', `
          window.GSAP = require('gsap');
      }
 
+     this.showLogo = function() {
+         this.logoVisible = true;
+         this.update();
+     }
+     this.hideLogo = function() {
+        this.logoVisible = false;
+        this.update();
+     }
 
      this.addEye = function() {
         console.log("Adding eyes");
@@ -189,7 +202,8 @@ componentFactory.createComponent('face', `
                     this.tags['yesno'],
                     this.timer,
                     this.crazy,
-                    this.stevie
+                    this.stevie,
+                    this
                 );
 
                 draw();

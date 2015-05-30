@@ -6,8 +6,8 @@ export default class Logic {
     constructor() {
         console.log("Logic constructed");
     }
-    init(input, output, selfie, yesno, timer, crazy, stevie) {
-        console.log("Initialising Logics with ", input, output, selfie, yesno, timer, crazy, stevie);
+    init(input, output, selfie, yesno, timer, crazy, stevie, face) {
+        console.log("Initialising Logics with ", input, output, selfie, yesno, timer, crazy, stevie, face);
         this.output = output;
         this.selfie = selfie;
         this.input = input;
@@ -15,6 +15,7 @@ export default class Logic {
         this.timer = timer;
         this.crazy = crazy;
         this.stevie = stevie;
+        this.face = face;
 
         this.stevie.loop = true;
 
@@ -61,13 +62,17 @@ export default class Logic {
             },
             ()=>{ //3
                 input.hide();
-                this.output.say(["Hi "+this.name+". Please face the camera and hug me","3","2","1"]
+                this.output.say(["Hi "+this.name+". Please face the camera and hug me"]
                     , () => {
-                        this.selfie.snap();
-                        setTimeout(() => {
-                            this.goToState(4);
-                        }, 3000);
-                    } );
+                    setTimeout(()=> {
+                        this.output.say(["3", "2", "1"],()=> {
+                            this.selfie.snap();
+                            setTimeout(() => {
+                                this.goToState(4);
+                            }, 5000);
+                        });
+                    }, 2000)
+                });
             },
             ()=>{ //4 - IMAGE IS GOOD?
                 this.selfie.clear();
@@ -387,7 +392,7 @@ export default class Logic {
         this.crazy.container.visible = true;
         setTimeout(() => {
             this.selfie.startWanted();
-        },2000);
+        },10000);
     }
     hideCrazy() {
         this.crazy.container.visible = false;

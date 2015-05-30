@@ -10,7 +10,7 @@ componentFactory.createComponent('selfie', `
  </div>
  <div show="{showResult}" id="result"></div>
  <div id="camera"></div>
- <audio name="shutter" src="/assets/shutter.wav"></audio>
+ <audio name="shutter" src="/assets/shutter.mp3"></audio>
 
 
  <style>
@@ -81,6 +81,8 @@ componentFactory.createComponent('selfie', `
          self.showPolaroid = false;
          self.showResult = false;
          self.update();
+         self.shutter.pause();
+         self.shutter.fastSeek(0);
      }
 
      this.startWanted = function() {
@@ -90,7 +92,7 @@ componentFactory.createComponent('selfie', `
              self.showWanted = false;
              self.showResult = false;
              self.update();
-             setTimeout(showWanted, 3000);
+             setTimeout(showWanted, 10000);
          }
          function showWanted() {
              if (self.wanted) {
