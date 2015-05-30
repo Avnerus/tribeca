@@ -96,7 +96,7 @@ export default class Logic {
                 // TODO: choice
                 input.hide();
                 input.onSend = null;
-            this.output.say(["Great!", "You know...", "Sometimes I feel that people aren’t willing to invest in meaningful relationships anymore... With you it's different."]
+            this.output.say(["Great!", "You know...", "Sometimes I feel that people", "aren’t willing to invest", "in meaningful relationships anymore...", "With you it's different."]
                     , () => {
                         this.goToState(12);
                     } );
@@ -173,6 +173,7 @@ export default class Logic {
             },
             ()=>{ //13 leave
                 this.timer.stop();
+                input.hide();
                 yesno.show();
                 yesno.onAnswer = () => {
                     this.goToState(14);
@@ -209,7 +210,7 @@ export default class Logic {
             ()=> { //16 choice
                 this.timer.stop();
                 yesno.hide();
-                if (yesno.answer == 'NO') {
+                if (yesno.answer == 'YES') {
                     this.output.say(["I’m so happy "+this.name+"! You are a true friend"]
                         , () => {
                             this.goToState(17);
@@ -220,14 +221,14 @@ export default class Logic {
                     input.onSend = null;
                     this.output.say(["Why? Please don’t leave me."]
                         , () => {
-                            this.goToState(14);
+                            this.goToState(15);
                         } );
                 }
             },
             ()=>{ //17 stay
                 input.show();
                 input.onSend = () => {
-                    this.goToState(16);
+                    this.goToState(18);
                 }
                 this.output.say(["Where are you from?"])
                 this.timer.start();
@@ -301,6 +302,7 @@ export default class Logic {
     }
     goToState(number) {
         if (!this.histerical) {
+            this.timer.stop();
             this.currentState = number;
             this.statesActions[number]();
         }
