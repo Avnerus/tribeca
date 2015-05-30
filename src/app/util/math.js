@@ -40,6 +40,10 @@ class MathUtil {
       n = n + '';
       return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
     }
+
+    getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+    }
 }
 
 // Singleton:
