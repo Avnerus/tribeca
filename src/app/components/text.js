@@ -42,7 +42,7 @@ componentFactory.createComponent('text', `
              } else {
                  options.pitch = mathUtil.getRandomInt(60, 120);
                  options.speed = 20;
-                 options.amplitude = 200;
+                 options.amplitude = 500;
                  options.variant = "croak";
              }
 
@@ -56,6 +56,13 @@ componentFactory.createComponent('text', `
              }
          }
          sayLine();
+     }
+     this.clear = function() {
+         this.currentMessage = "";
+         this.update();
+     }
+     this.stop = function() {
+         meSpeak.stop();
      }
  });
 

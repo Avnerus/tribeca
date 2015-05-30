@@ -5,14 +5,17 @@ export default class Logic {
     constructor() {
         console.log("Logic constructed");
     }
-    init(input, output, selfie, yesno, timer, crazy) {
-        console.log("Initialising Logics with ", input, output, selfie, yesno, timer, crazy);
+    init(input, output, selfie, yesno, timer, crazy, stevie) {
+        console.log("Initialising Logics with ", input, output, selfie, yesno, timer, crazy, stevie);
         this.output = output;
         this.selfie = selfie;
         this.input = input;
         this.yesno = yesno;
         this.timer = timer;
         this.crazy = crazy;
+        this.stevie = stevie;
+
+        this.stevie.loop = true;
 
         this.timer.onThreshold = (number) => {this.onThreshold(number)}
         window.onmousemove = ()=> {
@@ -22,6 +25,8 @@ export default class Logic {
             this.resetTimer();
         }
 
+
+        this.goIdle();
 
         this.statesActions=[
             ()=>{ //0
@@ -65,7 +70,7 @@ export default class Logic {
             },
             ()=>{ //4 - IMAGE IS GOOD?
                 this.selfie.clear();
-                this.output.say(["I Love this picture ! We look such good friends!", "Best Friends Forever!"]
+                this.output.say(["I Love this picture ! We look like such good friends!", "Best Friends Forever!"]
                     , () => {
                     this.goToState(5);
                 } );
@@ -73,6 +78,7 @@ export default class Logic {
             ()=>{ //5 - IMAGE IS GOOD?
                 yesno.show();
                 yesno.onAnswer = () => {
+                    console.log("Image is good answer - going to state 6");
                     this.goToState(6);
                 }
                 this.output.say(["Shall I send it to you?"])
@@ -96,12 +102,14 @@ export default class Logic {
                         this.goToState(7);
                     }
                     this.output.say(["What's Your e-mail?"]);
+                    this.timer.start();
                 }
             },
             ()=>{ //7 Weve got email
                 // TODO: choice
                 input.hide();
                 input.onSend = null;
+                this.timer.stop();
             this.output.say(["Great!", "You know...", "Sometimes I feel that people", "aren’t willing to invest", "in meaningful relationships anymore...", "With you it's different."]
                     , () => {
                         this.goToState(12);
@@ -298,6 +306,11 @@ export default class Logic {
             },
  		    () => {
                 let self = this;
+                self.showCrazy();
+                self.input.hide();
+                self.selfie.clear();
+                self.yesno.hide();
+
                 let lines = [
                     self.name.replace("a","aaaa").replace("o", "ooo").replace("e", "eeee").replace("i","eee"),
                     self.name + " where are yoooooo??",
@@ -319,30 +332,39 @@ export default class Logic {
 
         socketUtil.client.on('motion_detected', () => {
             console.log("Motion detected!! Running logic");
-            this.run();
+            if (this.idle) {
+                this.run();
+            }
         });
-
-        this.run(); // remove when motion detection activated
     }
 
     resetTimer() {
-        if (this.histericalState == 3)
+        this.timer.reset();
+
+        if (this.histerical && this.histericalState == 3)
         {
+            this.histerical = false;
+            this.output.stop();
+            this.hideCrazy();
             this.timer.stop();
-            this.output.say([this.name+"? Have you come back to me?"]
-            yesno.show();
-            yesno.onAnswer = () => {
-                yesno.hide();
-                if (yesno.answer == 'NO')
+            this.output.say([this.name+"? Have you come back to me?"]);
+            this.yesno.show();
+            this.yesno.onAnswer = () => {
+                this.yesno.hide();
+                if (this.yesno.answer == 'NO')
                 {
-                    this.currentState = 0;
+                    this.goIdle();
+                    this.run();
+                } else {
+                    console.log("Came back to me. Going to state: ", this.currentState);
+                    this.goToState(this.currentState);
                 }
             }
-        }
-        this.timer.reset();
-        if (this.histerical) {
-            this.histerical = false;
-            this.goToState(this.currentState);
+        } else {
+            if (this.histerical) {
+                this.histerical = false;
+                this.goToState(this.currentState);
+            }
         }
     }
     goToState(number) {
@@ -370,9 +392,8 @@ export default class Logic {
         console.log("Passed Threshold!!!", time, this);
         if (this.currentState < 3) {
             if (time == 9000) {
-                this.currentState = 0;
+                this.goIdle();
                 this.histerical = false;
-                this.goToState(this.currentState);
             }
         }
         else if (time == 5000)
@@ -385,13 +406,25 @@ export default class Logic {
             this.goHisterical(3);
         else
             {
-                this.currentState = 0;
+                this.goIdle();
                 this.histerical = false;
-                this.goToState(this.currentState);
             }
     }
 
+    goIdle() {
+        this.idle = true;
+        this.input.hide();
+        this.selfie.clear();
+        this.yesno.hide();
+        this.hideCrazy();
+        this.output.clear();
+        this.stevie.play();
+    }
+
     run() {
+        this.idle = false;
+        this.stevie.pause();
+        this.stevie.fastSeek(0);
         this.goToState(0);
     }
 };

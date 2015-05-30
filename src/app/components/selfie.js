@@ -10,6 +10,7 @@ componentFactory.createComponent('selfie', `
  </div>
  <div show="{showResult}" id="result"></div>
  <div id="camera"></div>
+ <audio name="shutter" src="/assets/shutter.wav"></audio>
 
 
  <style>
@@ -58,6 +59,7 @@ componentFactory.createComponent('selfie', `
 
      var self = this;
      this.snap = function() {
+         self.shutter.play();
          Webcam.snap( function(data_uri) {
              console.log(data_uri);
              document.getElementById('result').innerHTML = '<img src="'+data_uri+'"/>';

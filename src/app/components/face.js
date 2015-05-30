@@ -22,6 +22,7 @@ componentFactory.createComponent('face', `
  <text></text>
  <inputarea></inputarea>
  <yesno></yesno>
+ <audio name="stevie" src="/assets/stevie.mp3"></audio>
 
  <style>
      face {
@@ -187,7 +188,8 @@ componentFactory.createComponent('face', `
                     this.tags['selfie'], 
                     this.tags['yesno'],
                     this.timer,
-                    this.crazy
+                    this.crazy,
+                    this.stevie
                 );
 
                 draw();

@@ -21,6 +21,7 @@ componentFactory.createComponent('inputarea', `
          background-color: transparent;
          border-style: solid;
          font-size: 32px;
+         color: white;
      }
  </style>
  `,
@@ -35,6 +36,7 @@ componentFactory.createComponent('inputarea', `
      this.show = function() {
          this.input.value = "";
          $(this.input).show();
+         $(this.input).focus();
      }
 
      this.send = function() {
