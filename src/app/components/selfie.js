@@ -95,8 +95,8 @@ componentFactory.createComponent('selfie', `
          function showWanted() {
              if (self.wanted) {
                  console.log("Show wanted");
-                 self.showWanted = true;
                  self.showResult = true;
+                 self.showWanted = true;
                  self.update();
                  setTimeout(hideWanted, 2000);
              }

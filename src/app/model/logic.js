@@ -385,9 +385,13 @@ export default class Logic {
 
     showCrazy() {
         this.crazy.container.visible = true;
+        setTimeout(() => {
+            this.selfie.startWanted();
+        },2000);
     }
     hideCrazy() {
         this.crazy.container.visible = false;
+        this.selfie.stopWanted();
     }
 
     onThreshold(time) { // 6000, 9000, 12000, 50000
