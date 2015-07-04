@@ -61,7 +61,7 @@ routes.runRoutingTable(app);
 
 // Init sensor
 const sensor = new Sensor();
-sensor.init();
+//sensor.init();
 
 // Server routes
 app.configure(
@@ -92,7 +92,6 @@ app.configure(
 app.post('/upload', services.upload);
 
 // Mail
-console.log("Mail service: ", services.mail);
 app.post('/mail', services.mail);
 
 // Authentication setup
