@@ -24,7 +24,11 @@ export default class Logic {
             this.resetTimer();
         }
         window.onkeydown = ()=> {
-            this.resetTimer();
+            if (this.idle) {
+                this.run();
+            } else {
+                this.resetTimer();
+            }
         }
 
 
