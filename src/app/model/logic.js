@@ -429,7 +429,7 @@ export default class Logic {
 
     sendMail(mail, id) {
         console.log("Send mail!", mail, id);
-        fetchUtil.postJSON(envUtil.get('WEB_SERVER_URL'), {"mail": mail, "photoid": id})
+        fetchUtil.postJSON(envUtil.get('WEB_SERVER_URL') + '/mail', {"mail": mail, "photoid": id})
         .then(function(err, data) {
             console.log("Posted ", err, data);
         })
