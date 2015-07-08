@@ -213,6 +213,10 @@ gulp.task('root-dist', ['public-dist','package-json-dist'], function() {
     return gulp.src('app.js')
     .pipe(gulp.dest('dist/'));
 })
+gulp.task('selfies-dist',function() {
+    return gulp.src('selfies/**/*')
+    .pipe(gulp.dest('dist/selfies'));
+})
 
-gulp.task('dist', ['delete-dist','set-env-dist', 'build-dist', 'root-dist', 'public-bundle-dist'], function() {
+gulp.task('dist', ['delete-dist','set-env-dist', 'build-dist', 'selfies-dist', 'root-dist', 'public-bundle-dist'], function() {
 })
