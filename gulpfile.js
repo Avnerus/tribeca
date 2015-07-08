@@ -19,7 +19,7 @@ var rename = require('gulp-rename');
 
 var server;
 var watchEvent;
-var environment;
+var environment = 'development';
 
 // DEVELOPMENT TASKS
 //================================================
@@ -65,7 +65,7 @@ gulp.task('public-assets', function() {
 });
 
 // JS
-gulp.task('browserify', ['js-client', 'js-server', 'js-app'], function() {
+gulp.task('browserify', ['js-client', 'js-server', 'js-app', 'js-environment'], function() {
     // Browserify
     var b = browserify({
         entries: './build/client/index.js',
