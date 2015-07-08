@@ -28,7 +28,7 @@ import PrimusEmitter from 'primus-emitter';
 let app = feathers();
 
 // Escape the SystemJS dir
-app.use(feathers.static(process.env.APP_BASE_PATH + "/public"));
+app.use(feathers.static(__dirname + "/../../public"));
 
 // Riot app template engine
 app.engine('html', function (filePath, options, callback) { 
