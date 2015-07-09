@@ -9,7 +9,7 @@ export default function(req, res) {
     let transporter = nodemailer.createTransport({
         host: 'out.bezeqint.net',
         port: 25,
-        greetingTimeout: 15000,
+        greetingTimeout: 20000,
         auth: {
             user: 'avnerus',
             pass: '954042'
