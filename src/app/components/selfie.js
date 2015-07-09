@@ -82,7 +82,7 @@ componentFactory.createComponent('selfie', `
          self.showResult = false;
          self.update();
          self.shutter.pause();
-         self.shutter.fastSeek(0);
+         self.shutter.fastSeek ? self.shutter.fastSeek(0) : self.shutter.currentTime = 0;
      }
 
      this.startWanted = function() {

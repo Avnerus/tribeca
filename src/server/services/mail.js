@@ -7,10 +7,12 @@ export default function(req, res) {
     console.log("Sending mail");
 
     let transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'out.bezeqint.net',
+        port: 25,
+        greetingTimeout: 15000,
         auth: {
-            user: 'BFF2point0@gmail.com',
-            pass: 'hatsilu20'
+            user: 'avnerus',
+            pass: '954042'
         }
     });
     let mailOptions = {

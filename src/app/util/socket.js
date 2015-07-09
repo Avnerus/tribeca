@@ -3,6 +3,7 @@
 
 import PrimusNode from 'primus';
 import PrimusEmitter from 'primus-emitter';
+import envUtil from './env'
 
 class SocketUtil {
     constructor() {
@@ -15,7 +16,7 @@ class SocketUtil {
         if (typeof window != 'undefined') {
             // Client init
             console.log("Socket util - Client init with URL: ", url);
-            this.client = Primus.connect('http://localhost:3000');
+            this.client = Primus.connect(envUtil.get('WEB_SOCKET_URL'));
         } else {
             // Server init
             console.log("Socket util - Server init with URL: ", url);

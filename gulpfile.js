@@ -13,10 +13,13 @@ var babelify = require("babelify");
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var file = require('gulp-file');
-
+var del = require('del');
+var uglifyfy = require('uglifyify')
+var rename = require('gulp-rename');
 
 var server;
 var watchEvent;
+var environment = 'development';
 
 // DEVELOPMENT TASKS
 //================================================
@@ -62,7 +65,7 @@ gulp.task('public-assets', function() {
 });
 
 // JS
-gulp.task('browserify', ['js-client', 'js-server', 'js-app'], function() {
+gulp.task('browserify', ['js-client', 'js-server', 'js-app', 'js-environment'], function() {
     // Browserify
     var b = browserify({
         entries: './build/client/index.js',
@@ -117,14 +120,28 @@ gulp.task('reload-server', ['public'], function() {
     server.notify(watchEvent) ;
 });
 
-
-// Delete build Directory
-gulp.task('delete-build', function() {
-  rimraf('./build', function(err) {
-    plugins.util.log(err);
-  });
+gulp.task('delete-build', function (cb) {
+    return del([
+        'build/**/*',
+    ], function() {
+        cb();
+    });
 });
+  
+gulp.task('js-environment',['delete-build', 'js-env-client', 'js-env-server'], function() {
+    return gulp.src('src/app/environments/' + environment + '.js')
+        .pipe(rename('environment.js'))
+        .pipe(gulp.dest('build/app/'));
+})
+gulp.task('js-env-client', function() {
+    return;
+})
 
+gulp.task('js-env-server', ['delete-build'], function() {
+    return gulp.src('src/server/environments/' + environment + '.js')
+        .pipe(rename('environment.js'))
+        .pipe(gulp.dest('build/server/'));
+})
 
 // Task for generating the primus client
 gulp.task('primus', function() {
@@ -145,3 +162,61 @@ gulp.task('default', ['serve']);
 
 // DISTRIBUTION TASKS (TODO)
 //===============================================
+// Delete dist Directory
+gulp.task('delete-dist', function (cb) {
+    del([
+        'dist/**/*',
+    ], cb);
+});
+
+gulp.task('set-env-dist', function(cb) {
+    environment = 'production';
+    console.log("-==Environment: " + environment + "==-");
+    cb();
+})
+
+gulp.task('browserify-dist', ['js-client', 'js-app','js-environment', 'public-dist'], function() {
+    // Browserif-app
+    //
+    var b = browserify({
+        entries: './build/client/index.js',
+        transform: [babelify.configure({optional: ['runtime', 'es7.asyncFunctions']}), 'uglifyify']
+    });
+
+    function bundle() {
+        return b.bundle()
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(gulp.dest('dist/public/build/client'));
+    }
+    return bundle();
+
+});
+gulp.task('public-bundle-dist', ['browserify-dist'], function() {
+    return gulp.src('build/client/bundle.js')
+        .pipe(gulp.dest('public/build/client'));
+});
+
+gulp.task('public-dist',['public-css', 'public-assets', 'public-lib'], function() {
+    return gulp.src('public/**/*')
+    .pipe(gulp.dest('dist/public'));
+});
+gulp.task('build-dist',['html','js-server','public-dist'], function() {
+    return gulp.src('build/**/*')
+    .pipe(gulp.dest('dist/build'));
+})
+gulp.task('package-json-dist',function() {
+    return gulp.src('package.json')
+    .pipe(gulp.dest('dist/'));
+})
+gulp.task('root-dist', ['public-dist','package-json-dist'], function() {
+    return gulp.src('app.js')
+    .pipe(gulp.dest('dist/'));
+})
+gulp.task('selfies-dist',function() {
+    return gulp.src('selfies/**/*')
+    .pipe(gulp.dest('dist/selfies'));
+})
+
+gulp.task('dist', ['delete-dist','set-env-dist', 'build-dist', 'selfies-dist', 'root-dist', 'public-bundle-dist'], function() {
+})

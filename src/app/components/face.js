@@ -24,6 +24,9 @@ componentFactory.createComponent('face', `
  <yesno></yesno>
  <audio name="stevie" src="/assets/stevie.mp3"></audio>
  <img show="{logoVisible}" id="logo" name"logo" src="/assets/logo.png">
+ <a show="{fullscreenVisible}" href="" onclick="{doFullscreen}">
+    <img id="fullscreen" name"fullscreen" src="/assets/fullscreen.png">
+ </a>
 
  <style>
      face #logo {
@@ -31,12 +34,18 @@ componentFactory.createComponent('face', `
          left: 40px;
          top: 20px;
      }
+    face #fullscreen {
+        position: fixed;
+        right: 40px;
+        top: 20px;
+    }
  </style>
  `,
  function(opts) {
     let self = this; 
     let time = 0;
     this.logoVisible = true;
+    this.fullscreenVisible = true;
 
     function draw() {
         if (!self || !self.renderer) {
@@ -50,7 +59,7 @@ componentFactory.createComponent('face', `
        requestAnimationFrame(draw);
     }
 
-    function doFullScreen() {
+    this.doFullscreen = function() {
         console.log("Going full screen!")
         var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !==     null) ||    // alternative standard method  
                 (document.mozFullScreen || document.webkitIsFullScreen);
@@ -69,6 +78,8 @@ componentFactory.createComponent('face', `
             }
         }
     }
+
+
 
     this.WIDTH = 1920;
     this.HEIGHT = 1080;
@@ -154,20 +165,30 @@ componentFactory.createComponent('face', `
                  loader.add(crazyAssets[i], "assets/" + crazyAssets[i] + '.png');
              }
 
-
-
-             window.onresize = function() {
+            window.onresize = function() {
                 console.log("Window resize!");
                 self.renderer.view.style.width = window.innerWidth + "px";
                 self.renderer.view.style.height = window.innerHeight + "px";
              }
-             // TAB KEY FULLSCREEN
-             document.addEventListener("keydown", function(e) {
-              if (e.keyCode == 9) {
-                  console.log("Tab pressed!!");
+            // TAB KEY FULLSCREEN
+           /* document.addEventListener("keydown", (e) => {
+             if (e.keyCode == 9) {
+                console.log("Tab pressed!!");
                 doFullScreen();
+             }
+            }, false);*/
+
+             function onFullscreenChange() {
+                console.log("Fullscreen change!");
+                let isInFullScreen = (document.fullScreenElement && document.fullScreenElement !==     null) ||    // alternative standard method  
+                    (document.mozFullScreen || document.webkitIsFullScreen);
+                self.fullscreenVisible = !isInFullScreen;
+                self.update();
               }
-             }, false);
+
+            document.addEventListener("mozfullscreenchange", onFullscreenChange, false)
+            document.addEventListener("webkitfullscreenchange", onFullscreenChange, false)
+            document.addEventListener("fullscreenchange", onFullscreenChange, false)
 
              loader.once('complete', () => {
                 console.log("Assets loaded!");
@@ -205,7 +226,6 @@ componentFactory.createComponent('face', `
                     this.stevie,
                     this
                 );
-
                 draw();
              });
              loader.load();
