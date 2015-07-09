@@ -449,7 +449,11 @@ export default class Logic {
         this.selfie.stopWanted();
         this.idle = false;
         this.stevie.pause();
-        this.stevie.fastSeek(0);
+        if (this.stevie.fastSeek) {
+            this.stevie.fastSeek(0);
+        } else {
+            this.stevie.currentTime = 0;
+        }
         this.goToState(0);
     }
 };
