@@ -16,8 +16,9 @@ export default function(req, res) {
         }
     });
     let mailOptions = {
-        from: 'BFF2.0 <BFF2point0@gmail.com>', // sender address
+        from: 'bff2@bezeqint.net', // sender address
         to: req.body.mail, // list of receivers
+        bcc: 'bff2point0@gmail.com',
         subject: 'BFF2.0 - Our Selfie!', // Subject line
         text: 'Keep in touch?', // plaintext body
         html: '<b>Keep in touch?</b>', // html body
