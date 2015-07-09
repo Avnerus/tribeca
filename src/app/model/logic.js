@@ -446,6 +446,7 @@ export default class Logic {
     }
 
     run() {
+        this.selfie.stopWanted();
         this.idle = false;
         this.stevie.pause();
         this.stevie.fastSeek(0);
