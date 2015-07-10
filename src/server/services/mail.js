@@ -9,15 +9,16 @@ export default function(req, res) {
     let transporter = nodemailer.createTransport({
         host: 'out.bezeqint.net',
         port: 25,
-        greetingTimeout: 15000,
+        greetingTimeout: 20000,
         auth: {
             user: 'avnerus',
             pass: '954042'
         }
     });
     let mailOptions = {
-        from: 'BFF2.0 <BFF2point0@gmail.com>', // sender address
+        from: 'bff2@bezeqint.net', // sender address
         to: req.body.mail, // list of receivers
+        bcc: 'bff2point0@gmail.com',
         subject: 'BFF2.0 - Our Selfie!', // Subject line
         text: 'Keep in touch?', // plaintext body
         html: '<b>Keep in touch?</b>', // html body
