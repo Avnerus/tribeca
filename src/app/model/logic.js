@@ -1,6 +1,6 @@
 import socketUtil from '../util/socket'
 import mathUtil from '../util/math'
-import fetchUtil from '../util/fetch'
+import FetchUtil from '../util/fetch'
 import envUtil from '../util/env'
 
 export default class Logic {
@@ -17,6 +17,9 @@ export default class Logic {
         this.crazy = crazy;
         this.stevie = stevie;
         this.face = face;
+
+
+        this.fetchUtil = new FetchUtil();
 
         this.stevie.loop = true;
 
@@ -429,7 +432,7 @@ export default class Logic {
 
     sendMail(mail, id) {
         console.log("Send mail!", mail, id);
-        fetchUtil.postJSON(envUtil.get('WEB_SERVER_URL') + '/mail', {"mail": mail, "photoid": id})
+        this.fetchUtil.postJSON(envUtil.get('WEB_SERVER_URL') + '/mail', {"mail": mail, "photoid": id})
         .then(function(err, data) {
             console.log("Posted ", err, data);
         })

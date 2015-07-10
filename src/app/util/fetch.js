@@ -1,6 +1,5 @@
 // Fetch Util
 import fetch_ from 'isomorphic-fetch';
-import logUtil from './log'
 
 export default class FetchUtil {
     constructor(cookieHeader) {
